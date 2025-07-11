@@ -64,7 +64,7 @@ module tb_Sync_FIFO;
     end
   endtask
 
-  task reg_config;
+  task reg_config(input logic [31:0] addr, input logic [31:0] data);
     begin
     // T0 cycle
     PADDR = 32'h0000_0000;
@@ -77,12 +77,12 @@ module tb_Sync_FIFO;
     @(posedge PCLK);
     
     // T1 cycle
-    PADDR = 32'h0000_0000; // reg IO
+    PADDR = addr; // reg IO
     // PPROT = 3'b010; // fixed setting 
     PSEL = 1'b1;
     PENABLE = 1'b0;
     PWRITE = 1'b1;
-    PWDATA = 32'h00_00_00_01; // depth = 8 << (PWDATA - 1)
+    PWDATA = data; // depth = 8 << (PWDATA - 1)
     PSTRB = 4'b0001; // mask of PWDATA
     @(posedge PCLK);
     
@@ -98,10 +98,10 @@ module tb_Sync_FIFO;
     end
   endtask
 
-  task reg_read;
+  task reg_read(input logic [31:0] addr);
     begin
     // T1 cycle
-    PADDR = 32'h0000_0000; // reg IO
+    PADDR = addr; // reg IO
     // PPROT = 3'b010; // fixed
     PSEL = 1'b1;
     PENABLE = 1'b0;
@@ -122,10 +122,10 @@ module tb_Sync_FIFO;
     end
   endtask
 
-  task write_single_data;
+  task write_single_data(input logic [31:0] addr);
     begin
     // T1 cycle
-    PADDR = 32'h8000_0000; // FIFO IO
+    PADDR = addr; // FIFO IO
     // PPROT = 3'b010; // fixed
     PSEL = 1'b1;
     PENABLE = 1'b0;
@@ -146,10 +146,11 @@ module tb_Sync_FIFO;
     end
   endtask
 
-  task read_single_data;
+  task read_single_data(input logic [31:0] addr);
     begin
     // T1 cycle
-    PADDR = 32'h8000_0000; // FIFO IO
+    // PADDR = 32'h8000_0000; // FIFO IO
+    PADDR = addr; // FIFO IO
     // PPROT = 3'b010; // fixed
     PSEL = 1'b1;
     PENABLE = 1'b0;
@@ -176,29 +177,55 @@ module tb_Sync_FIFO;
     // reset
     reset;
 
-    // configure register
-    reg_config;
+    // // configure register
+    // reg_config(32'h0000_0000, 32'h00_00_00_01);
 
-    // front door register reading
-    reg_read;
+    // // front door register reading
+    // reg_read(32'h0000_0000);
     
-    // write data till full
+    // // write data till full
+    // repeat (8) begin
+    //   write_single_data(32'h8000_0000);
+    // end
+
+    // // try extra write (should not write if full)
+    // write_single_data(32'h8000_0000);
+    // $display("=== FIFO Extra Write Test Done ===");
+
+    // // read data back
+    // repeat (8) begin
+    //   read_single_data(32'h8000_0000);
+    // end
+
+    // // try extra read (should not read if empty)
+    // read_single_data(32'h8000_0000);
+    // $display("=== FIFO Extra Read Test Done ===");
+
+    // now fifo is empty, re-config reg
+    // invalid addr
+    reg_config(32'h0000_ffff, 32'h00_00_00_01);
+    // valid addr
+    reg_config(32'h0000_0000, 32'h00_00_00_01);
+
+    // write data till full, but invalid addr
     repeat (8) begin
-      write_single_data;
+      write_single_data(32'hffff_ffff);
     end
 
-    // try extra write (should not write if full)
-    write_single_data;
-    $display("=== FIFO Extra Write Test Done ===");
+    // write data till full
+    repeat (8) begin
+      write_single_data(32'h8000_0000);
+    end
+
+    // read data back, but invalid addr
+    repeat (8) begin
+      read_single_data(32'hffff_ffff);
+    end
 
     // read data back
     repeat (8) begin
-      read_single_data;
+      read_single_data(32'h8000_0000);
     end
-
-    // try extra read (should not read if empty)
-    read_single_data;
-    $display("=== FIFO Extra Read Test Done ===");
 
     @(posedge PCLK);
     @(posedge PCLK);

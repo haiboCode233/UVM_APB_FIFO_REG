@@ -54,15 +54,15 @@ logic addr_valid;
 
 // mapping APB signals to internal reg signals
 always_comb begin
-    reg_wr_en = PSEL & PWRITE & PENABLE & ~PADDR[31];
-    reg_rd_en = PSEL & ~PWRITE & PENABLE & ~PADDR[31];
+    reg_wr_en = PSEL & PWRITE & PENABLE & ~PADDR[31] & addr_valid;
+    reg_rd_en = PSEL & ~PWRITE & PENABLE & ~PADDR[31] & addr_valid;
     reg_addr = (PADDR >> 2) & 3'b111;
 end
 
 // mapping APB signals to internal fifo signals 
 always_comb begin
-    w_valid = PSEL & PWRITE & PENABLE & PADDR[31];
-    r_ready = PSEL & ~PWRITE & PENABLE & PADDR[31];
+    w_valid = PSEL & PWRITE & PENABLE & PADDR[31] & addr_valid;
+    r_ready = PSEL & ~PWRITE & PENABLE & PADDR[31] & addr_valid;
 end
 
 // address valid flag driver
@@ -76,7 +76,7 @@ end
 // APB output signals driver
 always_comb begin
     PREADY = 1; // in this design PREADY is always high
-    PSLVERR = 0; // temporary setting. will write a decode error handle block to assign PSLVERR
+    PSLVERR = ~addr_valid;
 end
 
 // reg fields
@@ -120,6 +120,7 @@ always_ff @(posedge PCLK or negedge PRESETn) begin
             end
         endcase
     end
+    // else: when address is invalid, latch original data
 end
 
 // reg & fifo read
@@ -129,7 +130,7 @@ always_comb begin
     else if(r_valid)
         PRDATA = { {(32-WIDTH){1'b0}}, mem[r_ptr] };
     else
-        PRDATA = 32'd0;
+        PRDATA = 32'd0; // if invalid address
 end
 
 // fifo write
@@ -143,6 +144,7 @@ always_ff @(posedge PCLK or negedge PRESETn) begin
         else
             w_ptr <= w_ptr + 1;
     end
+    //else: when address is invalid, latch original data
 end
 
 // fifo read --- update r_ptr
