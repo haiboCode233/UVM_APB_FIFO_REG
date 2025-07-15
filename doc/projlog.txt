@@ -1,0 +1,9 @@
+07/06/2025: Add FIFO Depth Reg to FIFO, completed basic FIFO read & write test.
+07/07/2025: Add detailed FIFO Depth Reg with address and fields definition, completed FIFO read & write test under different reg setting
+07/08/2025: Add APB interface, map all internal signals to APB bus signals, plan to write tb on 07/09.
+07/09/2025: Server was down, rest for one day.
+07/10/2025: Tested APB IO, looks very good. Plan to finish invalid addresses access situation in DUT and write more tb on 07/11.  
+07/11/2025: Added invalid addresses access code, wrote tb to test it, looks good. Start building UVM env.
+07/12/2025: Research on Easier UVM Code Generator.
+07/13/2025: 
+07/14/2025: Quit using Easier UVM. Created interface ,txn, bfm, driver, sequence, sequencer, package.
