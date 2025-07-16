@@ -8,6 +8,7 @@ class apb_fifo_txn extends uvm_sequence_item;
          bit [31:0] rdata;
          bit  [3:0] strob;
          bit        need_t0;
+         bit        error;
 
     `uvm_object_utils(apb_fifo_txn)
 
@@ -20,6 +21,7 @@ class apb_fifo_txn extends uvm_sequence_item;
         rdata    = 32'h0;
         strob    = 4'b0;
         need_t0  = 0;
+        error    = 0;
     endfunction //new()
 
     function string convert2string();
