@@ -9,7 +9,7 @@ class apb_fifo_txn extends uvm_sequence_item;
          bit  [3:0] strob;
          bit        need_t0;
          bit        error;
-
+    
     `uvm_object_utils(apb_fifo_txn)
 
     function new(string name = "apb_fifo_txn");

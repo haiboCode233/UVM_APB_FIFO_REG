@@ -8,3 +8,5 @@
 07/13/2025: 
 07/14/2025: Quit using Easier UVM. Created interface ,txn, bfm, driver, sequence, sequencer, package.
 07/15/2025: Add monitor module. Research on time slot & clocking block. Revised interface module.
+07/16/2025: Decide to add virtual sequence and virtual sequencer, creating scoreboard module.
+07/17/2025: Completed agent, vsqr, vseq, scoreboard, env. Plan to make it DUO top structure tmr. 
