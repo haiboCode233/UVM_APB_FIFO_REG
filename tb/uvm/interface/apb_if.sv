@@ -13,14 +13,14 @@ interface apb_if(input logic PCLK);
 
     clocking mon_cb @(posedge PCLK); // sample @ delta 1step of last Ts
         input PADDR;
-        input PPROT;
-        input PSEL;
-        input PENABLE;
         input PWRITE;
         input PWDATA;
-        input PSTRB;
         input PREADY;
         input PRDATA;
+
+        input PSEL;
+        input PENABLE;
+        input PSTRB;
         input PSLVERR;
     endclocking
 

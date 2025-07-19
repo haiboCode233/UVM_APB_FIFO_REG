@@ -1,3 +1,6 @@
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
 class apb_fifo_env extends uvm_env;
   `uvm_component_utils(apb_fifo_env)
 
@@ -18,7 +21,7 @@ class apb_fifo_env extends uvm_env;
 
   virtual function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
-    agent.ap.connect(sb.ap);
+    agent.mon_ap.connect(sb.ap);
     vsqr.apb_sqr = agent.sqr;
   endfunction
 endclass

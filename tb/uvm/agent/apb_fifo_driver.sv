@@ -1,3 +1,6 @@
+import uvm_pkg::*;
+`include "uvm_macros.svh"
+
 class apb_fifo_driver extends uvm_driver #(apb_fifo_txn); // parameterized class
   apb_fifo_bfm bfm;
 

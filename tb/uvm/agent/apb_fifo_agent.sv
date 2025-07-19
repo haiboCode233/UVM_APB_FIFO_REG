@@ -1,3 +1,6 @@
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
 class apb_fifo_agent extends uvm_agent;
     `uvm_component_utils(apb_fifo_agent)
     
@@ -10,7 +13,7 @@ class apb_fifo_agent extends uvm_agent;
         super.new(name, parent);
     endfunction //new()
 
-    virtual function build_phase(uvm_phase phase);
+    virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         if (is_active == UVM_ACTIVE) begin
             sqr = apb_fifo_sqr::type_id::create("sqr", this);
@@ -18,10 +21,10 @@ class apb_fifo_agent extends uvm_agent;
         end
 
         mon = apb_fifo_monitor::type_id::create("mon", this);
-        ap = new("ap", this);
+        mon_ap = new("mon_ap", this);
     endfunction
 
-    virtual function connect_phase(uvm_phase phase);
+    virtual function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
         if (is_active == UVM_ACTIVE) begin
             drv.seq_item_port.connect(sqr.seq_item_export);

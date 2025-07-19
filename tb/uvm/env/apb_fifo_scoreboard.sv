@@ -1,4 +1,6 @@
-import apb_fifo_types_pkg::*;
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
 
 class apb_fifo_scoreboard extends uvm_scoreboard;
     `uvm_component_utils(apb_fifo_scoreboard)
@@ -14,11 +16,12 @@ class apb_fifo_scoreboard extends uvm_scoreboard;
 
     virtual function void write(apb_fifo_txn txn);
 
-    case (txn.op_type)
-        if (txn.error) begin
+    if (txn.error) begin
             `uvm_warning("SB", "Transaction has PSLVERR set, skipping check.")
             return;
-        end
+    end
+
+    case (txn.op_type)        
         FIFO_WRITE: begin
             ref_fifo.push_back(txn.wdata);
         end
@@ -34,10 +37,6 @@ class apb_fifo_scoreboard extends uvm_scoreboard;
                 end
             end
         end
-        // REG_READ: begin
-        //     `uvm_info("SB", $sformatf("Read reg: addr=0x%08x data=0x%08x", txn.addr, txn.rdata), UVM_LOW)
-        // end
-        // default: ; // ignore REG_WRITE
     endcase
     endfunction
 

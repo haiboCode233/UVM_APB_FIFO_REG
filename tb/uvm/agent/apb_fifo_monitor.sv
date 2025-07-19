@@ -1,3 +1,6 @@
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
 class apb_fifo_monitor extends uvm_monitor;
     `uvm_component_utils(apb_fifo_monitor)
 
@@ -12,7 +15,7 @@ class apb_fifo_monitor extends uvm_monitor;
         ap = new("ap", this);
     endfunction //new()
 
-    virtual function build_phase(uvm_phase phase);
+    virtual function void build_phase(uvm_phase phase);
         if(!uvm_config_db#(virtual apb_if)::get(this,"","vif",vif))
             `uvm_fatal("NOVIF", "Failed to get interface handle")
     endfunction

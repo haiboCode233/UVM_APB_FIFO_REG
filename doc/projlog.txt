@@ -10,3 +10,5 @@
 07/15/2025: Add monitor module. Research on time slot & clocking block. Revised interface module.
 07/16/2025: Decide to add virtual sequence and virtual sequencer, creating scoreboard module.
 07/17/2025: Completed agent, vsqr, vseq, scoreboard, env. Plan to make it DUO top structure tmr. 
+07/18/2025: Completed DUO top files, added Makefile and tb.f, failed to run the UVM due to chaotic file structure.
+07/19/2025: Successfully compile all the files, created a Makefile, plan to write tests tmr.

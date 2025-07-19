@@ -1,3 +1,6 @@
+import uvm_pkg::*;
+`include "uvm_macros.svh"
+
 class apb_fifo_bfm;
     virtual apb_if vif;
 
@@ -51,4 +54,4 @@ class apb_fifo_bfm;
 
         clear_bus();
     endtask
-endclass
+endclass    

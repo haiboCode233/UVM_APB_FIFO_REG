@@ -1,3 +1,6 @@
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
 class apb_fifo_vsqr extends uvm_sequencer;
     `uvm_component_utils(apb_fifo_vsqr)
 
