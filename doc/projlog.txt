@@ -12,3 +12,7 @@
 07/17/2025: Completed agent, vsqr, vseq, scoreboard, env. Plan to make it DUO top structure tmr. 
 07/18/2025: Completed DUO top files, added Makefile and tb.f, failed to run the UVM due to chaotic file structure.
 07/19/2025: Successfully compile all the files, created a Makefile, plan to write tests tmr.
+07/20/2025: 
+07/21/2025: Run the UVM for the first time. Write txn works well, read txn failed to read data. Draw the current system structure with visio. 
+07/22/2025: Fixed a bug that monitor could not get the correct txn result. (DUT not reset, set PRESETn the input signal of the interface)
+07/23/2025: Fixed a DUT bug(PRDATA read condition error). 

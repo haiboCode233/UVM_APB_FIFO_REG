@@ -16,10 +16,17 @@ class apb_fifo_driver extends uvm_driver #(apb_fifo_txn); // parameterized class
   endfunction
 
   task run_phase(uvm_phase phase);
-    apb_fifo_txn txn;
+    apb_fifo_txn txn, rsp;
     forever begin
       seq_item_port.get_next_item(txn); // TLM pull
       bfm.drive_txn(txn);
+
+      // clone response
+      void'($cast(rsp, txn.clone()));  
+      rsp.set_id_info(txn);
+      rsp.rdata = txn.rdata;
+      seq_item_port.put_response(rsp);
+
       seq_item_port.item_done(); // TLM handshake
     end
   endtask

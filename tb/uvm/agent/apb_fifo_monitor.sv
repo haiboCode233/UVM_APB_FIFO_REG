@@ -24,7 +24,7 @@ class apb_fifo_monitor extends uvm_monitor;
         apb_fifo_txn txn;
 
         forever begin
-        @(vif.mon_cb) begin
+        @(posedge vif.mon_cb) begin
         if (vif.mon_cb.PSEL && vif.mon_cb.PENABLE && vif.mon_cb.PREADY) begin
             txn = apb_fifo_txn::type_id::create("txn", this);
 

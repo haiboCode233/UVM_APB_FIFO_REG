@@ -46,10 +46,7 @@ class apb_fifo_seq extends uvm_sequence #(apb_fifo_txn);
 
         start_item(req);
         finish_item(req);
-
-        if (req.op_type inside {REG_READ, FIFO_READ}) begin
-            `uvm_info("SEQ", req.convert2string(), UVM_LOW);
-        end
+        get_response(rsp);
     endtask
 
 endclass

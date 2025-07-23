@@ -1,5 +1,4 @@
-interface apb_if(input logic PCLK);
-    logic        PRESETn;
+interface apb_if(input logic PCLK, input logic PRESETn);
     logic [31:0] PADDR;
     logic [2:0]  PPROT;
     logic        PSEL;

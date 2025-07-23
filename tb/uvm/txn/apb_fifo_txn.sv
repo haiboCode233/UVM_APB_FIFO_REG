@@ -28,7 +28,7 @@ class apb_fifo_txn extends uvm_sequence_item;
     endfunction //new()
 
     function string convert2string();
-        return $sformatf("APB TXN: write=%0b addr=0x%08x wdata=0x%08x → rdata=0x%08x",
+        return $sformatf("APB TXN:write=%0b addr=0x%08x wdata=0x%08x rdata=0x%08x",
                     write, addr, wdata, rdata);
     endfunction
 

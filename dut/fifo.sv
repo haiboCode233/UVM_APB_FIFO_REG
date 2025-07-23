@@ -127,7 +127,7 @@ end
 always_comb begin
     if(reg_rd_en)
         PRDATA = reg_block[reg_addr];
-    else if(r_valid)
+    else if(r_ready && r_valid)
         PRDATA = { {(32-WIDTH){1'b0}}, mem[r_ptr] };
     else
         PRDATA = 32'd0; // if invalid address
@@ -158,7 +158,6 @@ always_ff @( posedge PCLK or negedge PRESETn ) begin
             r_ptr <= r_ptr + 1;
     end
 end
-
 
 // update var count
 always_ff @(posedge PCLK or negedge PRESETn) begin

@@ -30,6 +30,7 @@ class apb_fifo_scoreboard extends uvm_scoreboard;
                 `uvm_error("SB", "Read from empty reference model!")
             end else begin
                 bit [31:0] expected = ref_fifo.pop_front();
+                `uvm_info("SBR", $sformatf("Got txn: %s", txn.convert2string()), UVM_LOW)
                 if (txn.rdata !== expected) begin
                 `uvm_error("SB", $sformatf("Mismatch: expected=0x%08x, actual=0x%08x", expected, txn.rdata))
                 end else begin

@@ -15,7 +15,7 @@ class apb_fifo_test extends uvm_test;
         super.build_phase(phase);
 
         env = apb_fifo_env::type_id::create("env", this);
-
+        
         uvm_config_db #(uvm_active_passive_enum)::set(this, "env.agent", "is_active", UVM_ACTIVE);
     endfunction
 

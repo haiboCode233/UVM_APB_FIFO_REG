@@ -4,6 +4,7 @@ VSIM = vsim
 
 # ==== Top-Level Testbench ====
 TOP_SRC = ./tb/test_top.sv
+DUT_SRC = ./dut/fifo.sv
 TOP_MODULE = test_top
 
 # ==== Compilation Options ====
@@ -23,7 +24,7 @@ all: compile simulate
 
 compile:
 	@echo "Compiling UVM testbench..."
-	$(VLOG) $(VLOG_OPTS) $(TOP_SRC)
+	$(VLOG) $(VLOG_OPTS) $(DUT_SRC) $(TOP_SRC)
 
 simulate:
 	@echo "Running UVM test: $(TESTNAME)"
