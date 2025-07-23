@@ -15,4 +15,4 @@
 07/20/2025: 
 07/21/2025: Run the UVM for the first time. Write txn works well, read txn failed to read data. Draw the current system structure with visio. 
 07/22/2025: Fixed a bug that monitor could not get the correct txn result. (DUT not reset, set PRESETn the input signal of the interface)
-07/23/2025: Fixed a DUT bug(PRDATA read condition error). 
+07/23/2025: Fixed a DUT bug(PRDATA read condition error). Add monitor BFM function.

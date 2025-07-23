@@ -54,4 +54,20 @@ class apb_fifo_bfm;
 
         clear_bus();
     endtask
+
+    task sample_txn(ref apb_fifo_txn txn); // should use ref instead of output
+        @(posedge vif.mon_cb) begin
+        if (vif.mon_cb.PSEL && vif.mon_cb.PENABLE && vif.mon_cb.PREADY) begin
+
+            txn.addr   = vif.mon_cb.PADDR;
+            txn.strob  = vif.mon_cb.PSTRB;
+            txn.write  = vif.mon_cb.PWRITE;
+            txn.wdata  = vif.mon_cb.PWDATA;
+            txn.rdata  = vif.mon_cb.PRDATA;
+            txn.error  = vif.mon_cb.PSLVERR;
+        end else begin
+            txn = null;
+        end end
+    endtask
+
 endclass    
