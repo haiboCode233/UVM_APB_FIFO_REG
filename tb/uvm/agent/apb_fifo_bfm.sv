@@ -58,7 +58,7 @@ class apb_fifo_bfm;
     task sample_txn(ref apb_fifo_txn txn); // should use ref instead of output
         @(posedge vif.mon_cb) begin
         if (vif.mon_cb.PSEL && vif.mon_cb.PENABLE && vif.mon_cb.PREADY) begin
-
+            txn.op_type = vif.mon_cb.PWRITE ? (vif.mon_cb.PADDR[31] ? FIFO_WRITE : REG_CFG) : (vif.mon_cb.PADDR[31] ? FIFO_READ : REG_READ); 
             txn.addr   = vif.mon_cb.PADDR;
             txn.strob  = vif.mon_cb.PSTRB;
             txn.write  = vif.mon_cb.PWRITE;
