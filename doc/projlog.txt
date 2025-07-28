@@ -13,6 +13,11 @@
 07/18/2025: Completed DUO top files, added Makefile and tb.f, failed to run the UVM due to chaotic file structure.
 07/19/2025: Successfully compile all the files, created a Makefile, plan to write tests tmr.
 07/20/2025: 
-07/21/2025: Run the UVM for the first time. Write txn works well, read txn failed to read data. Draw the current system structure with visio. 
+07/21/2025: Run the UVM for the first time. Write txn works well, read txn failed to read data. Draw the current system structure fig.
 07/22/2025: Fixed a bug that monitor could not get the correct txn result. (DUT not reset, set PRESETn the input signal of the interface)
 07/23/2025: Fixed a DUT bug(PRDATA read condition error). Add monitor BFM function(Fixed a bug triggered by ref/output).
+07/24/2025: Adding register model, writing reg model, reg block model, adapter and rgm sequence.
+07/25/2025: Continue working on the reg model, planning the reg model structure.
+07/26/2025: 
+07/27/2025: 
+07/28/2025: Finalize the design and update the structure fig, keep working on reg model. 
