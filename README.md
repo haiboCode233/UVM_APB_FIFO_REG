@@ -1,3 +1,3 @@
 Test structure:
 
-![UVM Structure](./doc/structure.png)
+![UVM Structure](./doc/overall.png)
