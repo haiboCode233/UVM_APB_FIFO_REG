@@ -14,12 +14,18 @@ import uvm_pkg::*;
 
 `include "./uvm/env/apb_fifo_vsqr.sv"
 
+`include "./uvm/reg/apb_fifo_depth_reg.sv"
+`include "./uvm/reg/apb_fifo_dummy_reg.sv"
+`include "./uvm/reg/apb_fifo_reg_block.sv"
+`include "./uvm/reg/apb_fifo_rgm_adapter.sv"
+
 `include "./uvm/seq/apb_fifo_seq.sv"
 `include "./uvm/seq/apb_fifo_vseq.sv"
 
 `include "./uvm/env/apb_fifo_scoreboard.sv"
 `include "./uvm/env/apb_fifo_env.sv"
 `include "./uvm/test/apb_fifo_test.sv"
+
 
 module test_top();
     logic PCLK, PRESETn;

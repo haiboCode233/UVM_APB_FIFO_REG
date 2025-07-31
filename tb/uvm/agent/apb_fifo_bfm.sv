@@ -3,7 +3,7 @@ import uvm_pkg::*;
 
 class apb_fifo_bfm;
     virtual apb_if vif;
-
+    
     function new(virtual apb_if vif);
         this.vif = vif;
     endfunction

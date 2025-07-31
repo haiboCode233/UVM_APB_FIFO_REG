@@ -6,7 +6,7 @@ class apb_fifo_reg_block extends uvm_reg_block;
 
     // regs definition 
     rand apb_fifo_depth_reg reg0;
-    uvm_reg dummy_regs[7];
+    apb_fifo_dummy_reg dummy_regs[7];
 
     // reg map
     uvm_reg_map fifo_reg_map;
@@ -22,24 +22,24 @@ class apb_fifo_reg_block extends uvm_reg_block;
     virtual function void build();
         fifo_reg_map = create_map("fifo_reg_map", BASE_ADDR, ADDR_STRIDE, UVM_LITTLE_ENDIAN);
 
+        default_map = fifo_reg_map; // set default map
+
         reg0 = apb_fifo_depth_reg::type_id::create("reg0");
         reg0.build();
-        reg0.configure(this);                 // 归属于本 block
-        apb_map.add_reg(reg0, 'h00, "RW");    // offset = 0x00
+        reg0.configure(this);                 // reg0 belogs to this block
+        fifo_reg_map.add_reg(reg0, 'h00, "RW");    // offset = 0x00
 
         for (int i = 1; i < 8; i++) begin
-          dummy_regs[i-1] = uvm_reg::type_id::create($sformatf("dummy_reg%0d", i));
-          dummy_regs[i-1].configure(this, 32, UVM_NO_COVERAGE);
+          dummy_regs[i-1] = apb_fifo_dummy_reg::type_id::create($sformatf("dummy_reg%0d", i));
+          dummy_regs[i-1].configure(this);
           dummy_regs[i-1].build();
-          apb_map.add_reg(dummy_regs[i-1], i*ADDR_STRIDE, "RW"); // 或 "WO"/"RW"/RES0
+          fifo_reg_map.add_reg(dummy_regs[i-1], i*ADDR_STRIDE, "RW");
         end
 
-        // 如果你想启用寄存器/字段覆盖率，可以在这里打开：
         // this.set_coverage(UVM_CVR_ALL);
         // reg0.set_coverage(UVM_CVR_ALL);
 
-    lock_model(); // 建完后锁定模型（防止运行时误改结构）
+    lock_model();
   endfunction
-
 
 endclass //apb_fifo_reg_block extends uvm_reg_block

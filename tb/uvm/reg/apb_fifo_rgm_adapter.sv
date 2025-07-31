@@ -8,6 +8,7 @@ class apb_fifo_rgm_adapter extends uvm_reg_adapter;
     super.new(name);
     supports_byte_enable = 0; 
     provides_responses   = 1; 
+    `uvm_info("ADPT", "Adapter constructed", UVM_LOW);
   endfunction
 
   // reg -> bus (reg2bus)
@@ -25,7 +26,8 @@ class apb_fifo_rgm_adapter extends uvm_reg_adapter;
                                 ref uvm_reg_bus_op rw);
     apb_fifo_txn txn;
     if (!$cast(txn, bus_item)) begin
-      `uvm_fatal("RGM", "bus_item is not apb_fifo_txn")
+      // `uvm_fatal("RGM", "bus_item is not apb_fifo_txn")
+      `uvm_error("RGM", $sformatf("Invalid type in bus2reg: %s", bus_item.get_type_name()));
     end
 
     rw.addr   = txn.addr;
