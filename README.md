@@ -38,6 +38,7 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 ## Verification Plan
 ### Register Model Verification Plan
 <div align="center">
+
 | TestID | Description                                  | Method    | Stimulus                                             | Expected Result                     | Status | Make CMD |
 |--------|----------------------------------------------|-----------|------------------------------------------------------|-------------------------------------|--------|----------|
 | REG_01 | Read the default value of reg0               | Frontdoor | reg0.read()                                          | Return 0x0000_0000                  |        |          |
@@ -50,5 +51,8 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 | REG_08 | Read all dummy_regs                          | Frontdoor | dummy_reg[i].read()                                  | Return 0x0000_0000                  |        |          |
 | REG_09 | Mirror and compare                           | Frontdoor | reg0.set() reg0.mirror()                             | Mirror matches DUT                  |        |          |
 | REG_10 | Coverage bins for depth_sel_fld              | Coverage  | Cover all legal field values                         | All bins hit                        |        |          |
+
 </div>
+
 ## Results
+
