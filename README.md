@@ -41,7 +41,7 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 
 | TestID | Description                                  | Method    | Stimulus                                             | Expected Result                     | Status | Make CMD |
 |--------|----------------------------------------------|-----------|------------------------------------------------------|-------------------------------------|--------|----------|
-| REG_01 | Read the default value of reg0               | Frontdoor | reg0.read()                                          | Return 0x0000_0000                  |        |          |
+| REG_01 | Read the default value of reg0               | Frontdoor | reg0.read()                                          | Return 0x0000_0000                  |   <span style="color:green;">PASS</span>|          |
 | REG_02 | Write & read back of reg0                    | Frontdoor | reg0.write() reg0.read()                             | Return write value                  |        |          |
 | REG_03 | Write & read back of reg0 field only | Frontdoor | reg0.depth_sel_fld.write() <br>reg0.depth_sel_fld.read() | Same as REG_02 <br>since APB.PSTRB set |        |          |
 | REG_04 | Reset then read                              | Frontdoor | rgm.reset() reg0.read()                              | Return 0x0000_0000                  |        |          |
@@ -53,6 +53,8 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 | REG_10 | Coverage bins for depth_sel_fld              | Coverage  | Cover all legal field values                         | All bins hit                        |        |          |
 
 </div>
+
+### FIFO Verification Plan
 
 ## Results
 
