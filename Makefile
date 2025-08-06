@@ -12,9 +12,11 @@ VLOG_OPTS = -sv +acc +define+UVM_NO_DEPRECATED
 
 # ==== Default test name ====
 TESTNAME ?= apb_fifo_test
+TESTID ?= REG_01
 
 # ==== Simulation Options ====
-VSIM_OPTS = -c work.$(TOP_MODULE) +UVM_TESTNAME=$(TESTNAME) -do "run -all; quit"
+VSIM_OPTS = -c work.$(TOP_MODULE) +UVM_TESTNAME=$(TESTNAME) +TEST_ID=$(TESTID) -do "run -all; quit"
+
 
 # ============================================================
 # Targets
@@ -31,8 +33,8 @@ simulate:
 	$(VSIM) $(VSIM_OPTS)
 
 gui:
-	@echo "Launching GUI simulation..."
-	$(VSIM) work.$(TOP_MODULE)
+	@echo "Launching GUI simulation with test: $(TESTNAME), ID: $(TESTID)"
+	$(VSIM) work.$(TOP_MODULE) +TEST_ID=$(TESTID)
 
 clean:
 	@echo "Cleaning work directory and temporary files..."

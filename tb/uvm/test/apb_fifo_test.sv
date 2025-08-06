@@ -18,7 +18,8 @@ class apb_fifo_test extends uvm_test;
         
         rgm = apb_fifo_reg_block::type_id::create("rgm", this);
         rgm.build();
-        uvm_config_db #(apb_fifo_reg_block)::set(this, "env", "rgm", rgm);
+        rgm.reset();
+        uvm_config_db #(apb_fifo_reg_block)::set(null, "*", "rgm", rgm);
 
         env = apb_fifo_env::type_id::create("env", this);
         uvm_config_db #(uvm_active_passive_enum)::set(this, "env.agent", "is_active", UVM_ACTIVE);

@@ -42,9 +42,10 @@ class apb_fifo_bfm;
         // T2 cycle
         vif.PENABLE = 1'b1;
         wait (vif.PREADY === 1); // PREADY is always 1 in this design
+        @(posedge vif.PCLK);
         if (!txn.write)
             txn.rdata = vif.PRDATA;
-        @(posedge vif.PCLK);
+        
 
         // T3 cycle
         // PADDR and PWDATA remain same to save power

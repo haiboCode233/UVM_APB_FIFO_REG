@@ -12,14 +12,22 @@ import uvm_pkg::*;
 `include "./uvm/agent/apb_fifo_sqr.sv"
 `include "./uvm/agent/apb_fifo_agent.sv"
 
-`include "./uvm/env/apb_fifo_vsqr.sv"
-
 `include "./uvm/reg/apb_fifo_depth_reg.sv"
 `include "./uvm/reg/apb_fifo_dummy_reg.sv"
 `include "./uvm/reg/apb_fifo_reg_block.sv"
 `include "./uvm/reg/apb_fifo_rgm_adapter.sv"
 
+`include "./uvm/env/apb_fifo_vsqr.sv"
+
+// test sequences
 `include "./uvm/seq/apb_fifo_seq.sv"
+`include "./uvm/seq/reg/REG_01.sv"
+`include "./uvm/seq/reg/REG_05.sv"
+`include "./uvm/seq/reg/REG_06.sv"
+`include "./uvm/seq/reg/REG_07.sv"
+`include "./uvm/seq/reg/REG_08.sv"
+`include "./uvm/seq/reg/REG_09.sv"
+
 `include "./uvm/seq/apb_fifo_vseq.sv"
 
 `include "./uvm/env/apb_fifo_scoreboard.sv"

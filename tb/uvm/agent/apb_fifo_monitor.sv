@@ -8,7 +8,6 @@ class apb_fifo_monitor extends uvm_monitor;
     virtual apb_if.MONITOR vif;
     //bfm
     apb_fifo_bfm bfm;
-
     // ap
     uvm_analysis_port #(apb_fifo_txn) ap;
 

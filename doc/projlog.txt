@@ -23,4 +23,10 @@
 07/28/2025: Finalize the design and update the structure fig, keep working on reg model. 
 07/29/2025: Finish the construction of reg model, embedded it in the whole uvm structure, plan to test it tmr.
 07/30/2025: Deleted reg sequence file, rearrange RGM according to uvm cookbook.
-07/31/2025: RGM default map is null, cause runtime error. Fixed by call .build. Add new dummy reg sv file. Successfully run the base test with RGM installed.
+07/31/2025: RGM default map is null, cause runtime error. Fixed by call .build. Add new dummy reg sv file. Successfully run the base test with RGM installed. Tested RGM read write, correct txns were sent however could not get correct rgm.read result.
+08/01/2025: 
+08/02/2025: Fixed RGM read bug by checking adapter->driver.rsp->bfm, Fixed bfm.drive_txn T2 timing error.
+08/03/2025:
+08/04/2025: Re-arrange the Vseq structure, make it layered structure to run different test cases for coverage purpose. 
+08/05/2025: 
+08/06/2025: Fixed a bug by assigning txn.strob in rgm adapter. Finished REG_01 - REG_09 Test.

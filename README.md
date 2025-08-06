@@ -41,16 +41,16 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 
 | TestID | Description                                  | Method    | Stimulus                                             | Expected Result                     | Status | Make CMD |
 |--------|----------------------------------------------|-----------|------------------------------------------------------|-------------------------------------|--------|----------|
-| REG_01 | Read the default value of reg0               | Frontdoor | reg0.read()                                          | Return 0x0000_0000                  |   <span style="color:green;">PASS</span>|          |
-| REG_02 | Write & read back of reg0                    | Frontdoor | reg0.write() reg0.read()                             | Return write value                  |        |          |
-| REG_03 | Write & read back of reg0 field only | Frontdoor | reg0.depth_sel_fld.write() <br>reg0.depth_sel_fld.read() | Same as REG_02 <br>since APB.PSTRB set |        |          |
-| REG_04 | Reset then read                              | Frontdoor | rgm.reset() reg0.read()                              | Return 0x0000_0000                  |        |          |
-| REG_05 | Write illegal values to reg0                 | Frontdoor | reg0.write()                                         | Depth is set to 8                   |        |          |
-| REG_06 | Write illegal addresses of RGM               | Frontdoor | reg0.write()                                         | Error flagged                       |        |          |
-| REG_07 | Back door write, frontdoor read              | Mixed     | reg0.poke() reg0.read()                              | Return write value                  |        |          |
-| REG_08 | Read all dummy_regs                          | Frontdoor | dummy_reg[i].read()                                  | Return 0x0000_0000                  |        |          |
-| REG_09 | Mirror and compare                           | Frontdoor | reg0.set() reg0.mirror()                             | Mirror matches DUT                  |        |          |
-| REG_10 | Coverage bins for depth_sel_fld              | Coverage  | Cover all legal field values                         | All bins hit                        |        |          |
+| REG_01 | Read the default value of reg0               | Frontdoor | reg0.read()                                          | Return 0x0000_0001                  |   <span style="color:green;">PASS</span>|make          |
+| REG_02 | Write & read back of reg0                    | Frontdoor | reg0.write() reg0.read()                             | Return write value                  |<span style="color:green;">PASS</span>      |make          |
+| REG_03 | Write & read back of reg0 field only | Frontdoor | reg0.depth_sel_fld.write() <br>reg0.depth_sel_fld.read() | Same as REG_02 <br>since APB.PSTRB set  |<span style="color:green;">PASS</span>      |make          |
+| REG_04 | Write corner values then read                | Frontdoor | reg0.write() reg0.read()                             | Return write values                 |<span style="color:green;">PASS</span>      |make          |
+| REG_05 | Write illegal values to reg0                 | Frontdoor | reg0.write()                                         | Depth is set to 8                   |<span style="color:green;">PASS</span>      |make TESTID=REG_05          |
+| REG_06 | Write illegal addresses of RGM               | Frontdoor | reg0.write()                                         | Error flagged                       |<span style="color:green;">PASS</span>      |make TESTID=REG_06          |
+| REG_07 | Back door write, frontdoor read              | Mixed     | reg0.write(BACKDOOR) reg0.read()                     | Display write value                 |<span style="color:green;">PASS</span>      |make TESTID=REG_07          |
+| REG_08 | Read all dummy_regs                          | Frontdoor | dummy_reg[i].read()                                  | Return 0x0000_0000                  |<span style="color:green;">PASS</span>      |make TESTID=REG_08          |
+| REG_09 | Mirror and compare                           | Frontdoor | reg0.set() reg0.mirror()                             | Mirror matches DUT                  |<span style="color:green;">PASS</span>      |make TESTID=REG_09          |
+| REG_10 | Coverage bins for depth_sel_fld              | Coverage  | Cover all legal field values                         | All bins hit                        |      |          |
 
 </div>
 

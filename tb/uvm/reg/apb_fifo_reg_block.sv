@@ -20,6 +20,7 @@ class apb_fifo_reg_block extends uvm_reg_block;
     endfunction //new()
 
     virtual function void build();
+        this.set_hdl_path_root("test_top.DUT");
         fifo_reg_map = create_map("fifo_reg_map", BASE_ADDR, ADDR_STRIDE, UVM_LITTLE_ENDIAN);
 
         default_map = fifo_reg_map; // set default map
@@ -28,6 +29,8 @@ class apb_fifo_reg_block extends uvm_reg_block;
         reg0.build();
         reg0.configure(this);                 // reg0 belogs to this block
         fifo_reg_map.add_reg(reg0, 'h00, "RW");    // offset = 0x00
+
+        reg0.add_hdl_path('{ '{ "reg_block[0]", 0, 32 } });
 
         for (int i = 1; i < 8; i++) begin
           dummy_regs[i-1] = apb_fifo_dummy_reg::type_id::create($sformatf("dummy_reg%0d", i));

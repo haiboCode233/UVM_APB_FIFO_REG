@@ -6,9 +6,8 @@ class apb_fifo_rgm_adapter extends uvm_reg_adapter;
 
   function new(string name = "apb_fifo_rgm_adapter");
     super.new(name);
-    supports_byte_enable = 0; 
+    supports_byte_enable = 1; 
     provides_responses   = 1; 
-    `uvm_info("ADPT", "Adapter constructed", UVM_LOW);
   endfunction
 
   // reg -> bus (reg2bus)
@@ -18,6 +17,7 @@ class apb_fifo_rgm_adapter extends uvm_reg_adapter;
     txn.addr  = rw.addr[31:0];   
     txn.write = (rw.kind == UVM_WRITE);
     txn.wdata = rw.data[31:0];
+    txn.strob = 4'b0001; // Necessary!
     return txn;
   endfunction
 

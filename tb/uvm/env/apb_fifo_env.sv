@@ -41,5 +41,6 @@ class apb_fifo_env extends uvm_env;
     if (adapter == null)
       `uvm_fatal("CONNECT", "adapter is null before set_sequencer")
     rgm.default_map.set_sequencer(vsqr.apb_sqr, adapter);
+    vsqr.rgm = rgm;
   endfunction
 endclass

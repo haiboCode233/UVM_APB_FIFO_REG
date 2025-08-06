@@ -9,7 +9,7 @@ class apb_fifo_depth_reg extends uvm_reg;
     function new(string name = "apb_fifo_depth_reg");
         super.new(name, 32, UVM_NO_COVERAGE);
     endfunction //new()
-
+    
     virtual function void build();
         depth_sel_fld = uvm_reg_field::type_id::create("depth_sel_fld");
         depth_sel_fld.configure(
