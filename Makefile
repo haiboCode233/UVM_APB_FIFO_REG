@@ -15,8 +15,7 @@ TESTNAME ?= apb_fifo_test
 TESTID ?= REG_01
 
 # ==== Simulation Options ====
-VSIM_OPTS = -c work.$(TOP_MODULE) +UVM_TESTNAME=$(TESTNAME) +TEST_ID=$(TESTID) -do "run -all; quit"
-
+VSIM_OPTS = -c -coverage work.$(TOP_MODULE) +UVM_TESTNAME=$(TESTNAME) +TEST_ID=$(TESTID) -do "run -all; coverage save cov.ucdb; quit -f"
 
 # ============================================================
 # Targets

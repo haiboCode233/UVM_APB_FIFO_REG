@@ -55,6 +55,22 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 </div>
 
 ### FIFO Verification Plan
+<div align="center">
+
+| TestID  | Description                    | Depth | Expected Result   | Status | Make CMD |
+|---------|--------------------------------|-------|-------------------|--------|----------|
+| FIFO_01 | Write and Read                 | 8     | Read Write Value  |        |          |
+| FIFO_02 | Write to full w/ 1 GAP         | 8     | No ERR            |        |          |
+| FIFO_03 | Write to full w/ 2 GAPs        | 8     | No ERR            |        |          |
+| FIFO_04 | Write to full B2B              | 8     | No ERR            |        |          |
+| FIFO_05 | Write when full                | 8     | ERR               |        |          |
+| FIFO_06 | Write to full, Read till empty | 8     | Read Write Value  |        |          |
+| FIFO_07 | Read When empty                | 8     | ERR               |        |          |
+| FIFO_08 | 2x FIFO_04                     | 8     | Read Write Value  |        |          |
+| FIFO_09 | PSTRB R/W Test                 | 8     | Read Masked Value |        |          |
+| FIFO_10 | Coverage Bins                  | /     | /                 |        |          |
+
+</div>
 
 ## Results
 

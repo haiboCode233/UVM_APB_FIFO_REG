@@ -62,4 +62,4 @@ class apb_fifo_vseq extends uvm_sequence #(apb_fifo_txn);
         // end
     endtask
 
-endclass
+endclass·

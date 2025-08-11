@@ -8,6 +8,7 @@ class apb_fifo_env extends uvm_env;
   apb_fifo_scoreboard  sb;
   apb_fifo_vsqr        vsqr;
   apb_fifo_rgm_adapter adapter;
+  apb_fifo_coverage    cov;
   uvm_reg_predictor #(apb_fifo_txn) predictor;
   apb_fifo_reg_block rgm;
 
@@ -21,6 +22,7 @@ class apb_fifo_env extends uvm_env;
     agent = apb_fifo_agent::type_id::create("agent", this);
     sb    = apb_fifo_scoreboard::type_id::create("sb", this);
     vsqr  = apb_fifo_vsqr::type_id::create("vsqr", this);
+    cov   = apb_fifo_coverage::type_id::create("cov", this);
     adapter = apb_fifo_rgm_adapter::type_id::create("adapter", this);
     predictor = uvm_reg_predictor #(apb_fifo_txn)::type_id::create("predictor", this);
     if (!uvm_config_db#(apb_fifo_reg_block)::get(this, "", "rgm", rgm))
@@ -36,6 +38,7 @@ class apb_fifo_env extends uvm_env;
     predictor.map     = rgm.default_map;
     predictor.adapter = adapter;  
     agent.mon_ap.connect(predictor.bus_in);
+    agent.mon_ap.connect(cov.ap_imp);
     if (vsqr.apb_sqr == null)
       `uvm_fatal("CONNECT", "vsqr.apb_sqr is null before setting regmap sequencer!")
     if (adapter == null)

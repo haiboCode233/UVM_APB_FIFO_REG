@@ -30,3 +30,6 @@
 08/04/2025: Re-arrange the Vseq structure, make it layered structure to run different test cases for coverage purpose. 
 08/05/2025: 
 08/06/2025: Fixed a bug by assigning txn.strob in rgm adapter. Finished REG_01 - REG_09 Test.
+08/07/2025: 
+08/08/2025: Added coverage module to the UVM, tested dummy coverage group. Designing coverage bins.
+08/08/2025: 

@@ -12,6 +12,8 @@ import uvm_pkg::*;
 `include "./uvm/agent/apb_fifo_sqr.sv"
 `include "./uvm/agent/apb_fifo_agent.sv"
 
+`include "./uvm/coverage/apb_fifo_coverage.sv"
+
 `include "./uvm/reg/apb_fifo_depth_reg.sv"
 `include "./uvm/reg/apb_fifo_dummy_reg.sv"
 `include "./uvm/reg/apb_fifo_reg_block.sv"
@@ -77,7 +79,7 @@ module test_top();
 
     initial begin
         apb_bfm_inst = new(apb_if_inst);
-
+        
         uvm_config_db #(virtual apb_if)::set(null, "*", "vif", apb_if_inst);
         uvm_config_db #(apb_fifo_bfm)::set(null, "*", "bfm", apb_bfm_inst);
 

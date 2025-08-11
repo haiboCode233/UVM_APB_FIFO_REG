@@ -13,8 +13,14 @@ class apb_fifo_test extends uvm_test;
     endfunction //new()
 
     virtual function void build_phase(uvm_phase phase);
+        string arg_value;
         super.build_phase(phase);
-
+        if ($value$plusargs("TEST_ID=%s", arg_value)) begin
+            string fname = $sformatf("cov/%s.ucdb", arg_value);
+            $set_coverage_db_name(fname);
+        end else begin
+            $set_coverage_db_name("./cov/REG_01.ucdb");
+        end
         
         rgm = apb_fifo_reg_block::type_id::create("rgm", this);
         rgm.build();
@@ -38,4 +44,9 @@ class apb_fifo_test extends uvm_test;
         
         phase.drop_objection(this);
     endtask
+
+    virtual function void report_phase(uvm_phase phase);
+        super.report_phase(phase);
+        $display("Functional coverage = %0.2f%%", $get_coverage());
+    endfunction
 endclass //apb_fifo_test extends uvm_test
