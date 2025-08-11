@@ -46,20 +46,16 @@ class apb_fifo_vseq extends uvm_sequence #(apb_fifo_txn);
             sub_seq = seq_reg_08::type_id::create("sub_seq");
         end else if (test_id == "REG_09") begin
             sub_seq = seq_reg_09::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_01") begin
+            sub_seq = seq_fifo_01::type_id::create("sub_seq");
         end
 
-        sub_seq.start(vsqr.rgm.default_map.get_sequencer());
-        // for(i = 0; i < 8; i++) begin
-        //     wr_seq = apb_fifo_seq::type_id::create($sformatf("wr_%0d", i));
-        //     wr_seq.op_type = FIFO_WRITE;
-        //     wr_seq.start(vsqr.apb_sqr);
-        // end
+        if(test_id.substr(0,2) == "REG") begin
+            sub_seq.start(vsqr.rgm.default_map.get_sequencer());
+        end else begin
+            sub_seq.start(vsqr);
+        end
 
-        // for(i = 0; i < 8; i++) begin
-        //     rd_seq = apb_fifo_seq::type_id::create($sformatf("rd_%0d", i));
-        //     rd_seq.op_type = FIFO_READ;
-        //     rd_seq.start(vsqr.apb_sqr);
-        // end
     endtask
 
-endclass·
+endclass

@@ -30,6 +30,8 @@ import uvm_pkg::*;
 `include "./uvm/seq/reg/REG_08.sv"
 `include "./uvm/seq/reg/REG_09.sv"
 
+`include "./uvm/seq/fifo/FIFO_01.sv"
+
 `include "./uvm/seq/apb_fifo_vseq.sv"
 
 `include "./uvm/env/apb_fifo_scoreboard.sv"
