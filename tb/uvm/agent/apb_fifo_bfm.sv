@@ -53,6 +53,8 @@ class apb_fifo_bfm;
         vif.PENABLE = 1'b0;
         @(posedge vif.PCLK);
 
+        // gap circles
+        repeat (txn.gap_cycles) @(posedge vif.PCLK);
         clear_bus();
     endtask
 

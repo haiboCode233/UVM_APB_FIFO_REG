@@ -31,6 +31,14 @@ import uvm_pkg::*;
 `include "./uvm/seq/reg/REG_09.sv"
 
 `include "./uvm/seq/fifo/FIFO_01.sv"
+`include "./uvm/seq/fifo/FIFO_02.sv"
+`include "./uvm/seq/fifo/FIFO_03.sv"
+`include "./uvm/seq/fifo/FIFO_04.sv"
+`include "./uvm/seq/fifo/FIFO_05.sv"
+`include "./uvm/seq/fifo/FIFO_06.sv"
+`include "./uvm/seq/fifo/FIFO_07.sv"
+`include "./uvm/seq/fifo/FIFO_08.sv"
+`include "./uvm/seq/fifo/FIFO_09.sv"
 
 `include "./uvm/seq/apb_fifo_vseq.sv"
 

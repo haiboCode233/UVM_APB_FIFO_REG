@@ -138,7 +138,7 @@ always_ff @(posedge PCLK or negedge PRESETn) begin
     if(!PRESETn) begin
         w_ptr <= 0;
     end else if(w_ready && w_valid) begin
-        mem[w_ptr] <= PWDATA;
+        if(PSTRB[0]) mem[w_ptr] <= PWDATA;
         if(w_ptr == fifo_depth - 1)
             w_ptr <= 0;
         else
@@ -185,9 +185,10 @@ end
 `ifdef ASSERT_ON
 property p_no_write_when_full;
     @(posedge PCLK) disable iff (!PRESETn)
-        !(w_valid && full)
+        w_valid |=> !full;
 endproperty
-assert property (p_no_write_when_full) 
+
+assert property (p_no_write_when_full)
     else $error("[ASSERT FAIL]: Write when FIFO is full!");
 
 property p_no_read_when_empty;

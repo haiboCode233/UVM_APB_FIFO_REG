@@ -32,4 +32,10 @@
 08/06/2025: Fixed a bug by assigning txn.strob in rgm adapter. Finished REG_01 - REG_09 Test.
 08/07/2025: 
 08/08/2025: Added coverage module to the UVM, tested dummy coverage group. Designing coverage bins.
-08/08/2025: 
+08/09/2025: 
+08/10/2025: 
+08/11/2025: Desgined basic FIFO test plan.
+08/12/2025: 
+08/13/2025: Created and test first FIFO test case.
+08/14/2025: 
+08/15/2025: Tested all basic fifo test cases. Added a new field for txn. Fixed a PSTRB error by test FIFO_09.

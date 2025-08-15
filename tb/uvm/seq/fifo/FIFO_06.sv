@@ -1,8 +1,8 @@
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 
-class seq_fifo_02 extends uvm_sequence #(apb_fifo_txn);
-    `uvm_object_utils(seq_fifo_02)
+class seq_fifo_06 extends uvm_sequence #(apb_fifo_txn);
+    `uvm_object_utils(seq_fifo_06)
     
     apb_fifo_vsqr vsqr;
     apb_fifo_seq wr_seq;
@@ -11,17 +11,17 @@ class seq_fifo_02 extends uvm_sequence #(apb_fifo_txn);
     uvm_status_e status;
     uvm_reg_data_t read_val;
     
-    function new(string name = "seq_fifo_02");
+    function new(string name = "seq_fifo_06");
         super.new(name);
     endfunction
 
     /*
-        TestID: FIFO_02
-        Description: Write to full w/ 1 GAP
+        TestID: FIFO_06
+        Description: Write to full, Read till empty
     */
     task body();
         if (!$cast(vsqr, m_sequencer)) begin
-            `uvm_fatal("FIFO_02", "Cannot cast m_sequencer to apb_fifo_vsqr")
+            `uvm_fatal("FIFO_06", "Cannot cast m_sequencer to apb_fifo_vsqr")
         end
 
         // configure depth to 8
@@ -35,7 +35,13 @@ class seq_fifo_02 extends uvm_sequence #(apb_fifo_txn);
         for(int i=0;i<8;i++) begin
             wr_seq = apb_fifo_seq::type_id::create($sformatf("wr_0%d",i));
             wr_seq.op_type = FIFO_WRITE;
-            wr_seq.gap_cycles = 1;
+            wr_seq.gap_cycles = 0;
+            wr_seq.start(vsqr.apb_sqr);
+        end
+
+        for(int i=0;i<8;i++) begin
+            rd_seq = apb_fifo_seq::type_id::create($sformatf("rd_0%d",i));
+            wr_seq.op_type = FIFO_READ;
             wr_seq.start(vsqr.apb_sqr);
         end
     endtask

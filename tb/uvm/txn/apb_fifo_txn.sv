@@ -10,10 +10,11 @@ class apb_fifo_txn extends uvm_sequence_item;
     rand bit        write;
     rand bit [31:0] addr;
     rand bit [31:0] wdata;
-        bit [31:0] rdata;
-        bit  [3:0] strob;
-        bit        need_t0;
-        bit        error;
+        bit [31:0]  rdata;
+        bit  [3:0]  strob;
+        bit         need_t0;
+        bit         error;
+    rand int        gap_cycles;
     
     function new(string name = "apb_fifo_txn");
         super.new(name);
@@ -25,6 +26,7 @@ class apb_fifo_txn extends uvm_sequence_item;
         strob    = 4'b0;
         need_t0  = 0;
         error    = 0;
+        gap_cycles = 0;
     endfunction //new()
 
     function string convert2string();

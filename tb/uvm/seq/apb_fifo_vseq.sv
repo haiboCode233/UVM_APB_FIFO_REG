@@ -48,7 +48,23 @@ class apb_fifo_vseq extends uvm_sequence #(apb_fifo_txn);
             sub_seq = seq_reg_09::type_id::create("sub_seq");
         end else if (test_id == "FIFO_01") begin
             sub_seq = seq_fifo_01::type_id::create("sub_seq");
-        end
+        end else if (test_id == "FIFO_02") begin
+            sub_seq = seq_fifo_02::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_03") begin
+            sub_seq = seq_fifo_03::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_04") begin
+            sub_seq = seq_fifo_04::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_05") begin
+            sub_seq = seq_fifo_05::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_06") begin
+            sub_seq = seq_fifo_06::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_07") begin
+            sub_seq = seq_fifo_07::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_08") begin
+            sub_seq = seq_fifo_08::type_id::create("sub_seq");
+        end else if (test_id == "FIFO_09") begin
+            sub_seq = seq_fifo_09::type_id::create("sub_seq");
+        end 
 
         if(test_id.substr(0,2) == "REG") begin
             sub_seq.start(vsqr.rgm.default_map.get_sequencer());
