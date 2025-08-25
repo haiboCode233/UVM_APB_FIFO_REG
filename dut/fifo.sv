@@ -23,6 +23,7 @@ module Sync_FIFO #(
 
 // register block
 logic [31:0] reg_block [7:0]; // 8 registers, each 32-bit
+logic [31:0] status_reg; // the combinational status reg
 /*
     bit 0: depth = 8
     bit 1: depth = 16
@@ -42,7 +43,7 @@ logic [$clog2(MAX_DEPTH)-1:0] w_ptr, r_ptr;
 // internal signals --- reg signals
 logic reg_wr_en;
 logic reg_rd_en;
-logic [2:0] reg_addr;
+logic [3:0] reg_addr;
 // logic [31:0] reg_wr_data;
 // internal signals --- fifo signals
 logic w_ready;
@@ -56,7 +57,7 @@ logic addr_valid;
 always_comb begin
     reg_wr_en = PSEL & PWRITE & PENABLE & ~PADDR[31] & addr_valid;
     reg_rd_en = PSEL & ~PWRITE & PENABLE & ~PADDR[31] & addr_valid;
-    reg_addr = (PADDR >> 2) & 3'b111;
+    reg_addr = (PADDR >> 2) & 4'b1111;
 end
 
 // mapping APB signals to internal fifo signals 
@@ -67,7 +68,7 @@ end
 
 // address valid flag driver
 always_comb begin
-  if (PADDR[30:0] <= 32'h0000_001C) // This saves most of resources, bit 31 can be either 1 or 0, might be useful in interviews lol
+  if (PADDR[30:0] <= 32'h0000_0020) // This saves most of resources, bit 31 can be either 1 or 0, might be useful in interviews lol
     addr_valid = 1'b1;
   else
     addr_valid = 1'b0;
@@ -123,10 +124,25 @@ always_ff @(posedge PCLK or negedge PRESETn) begin
     // else: when address is invalid, latch original data
 end
 
+always_comb begin
+    status_reg[31:8] = 0;
+    status_reg[7:2] = count;
+    status_reg[1] = full;
+    status_reg[0] = empty;
+end
+
 // reg & fifo read
 always_comb begin
     if(reg_rd_en)
-        PRDATA = reg_block[reg_addr];
+        if(reg_addr <= 7) begin // reg0 - reg7
+            // PRDATA = PADDR;
+            PRDATA = reg_block[reg_addr];
+        end else if(reg_addr == 8) begin // reg8
+            PRDATA = status_reg;
+            // PRDATA = 32'hDEAD_BEEF;
+        end else begin
+            PRDATA = 32'd0; // invalid address
+        end
     else if(r_ready && r_valid)
         PRDATA = { {(32-WIDTH){1'b0}}, mem[r_ptr] };
     else

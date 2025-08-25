@@ -17,7 +17,7 @@ class apb_fifo_rgm_adapter extends uvm_reg_adapter;
     txn.addr  = rw.addr[31:0];   
     txn.write = (rw.kind == UVM_WRITE);
     txn.wdata = rw.data[31:0];
-    txn.strob = 4'b0001; // Necessary!
+    txn.strob = 4'b1111; // Necessary!
     return txn;
   endfunction
 

@@ -7,6 +7,7 @@ class apb_fifo_reg_block extends uvm_reg_block;
     // regs definition 
     rand apb_fifo_depth_reg reg0;
     apb_fifo_dummy_reg dummy_regs[7];
+    apb_fifo_status_reg reg8;
 
     // reg map
     uvm_reg_map fifo_reg_map;
@@ -38,6 +39,12 @@ class apb_fifo_reg_block extends uvm_reg_block;
           dummy_regs[i-1].build();
           fifo_reg_map.add_reg(dummy_regs[i-1], i*ADDR_STRIDE, "RW");
         end
+
+        reg8 = apb_fifo_status_reg::type_id::create("reg8");
+        reg8.build();
+        reg8.configure(this);
+        fifo_reg_map.add_reg(reg8, 'h20, "RO");
+        reg8.add_hdl_path('{ '{ "status_reg", 0, 32 } });
 
         // this.set_coverage(UVM_CVR_ALL);
         // reg0.set_coverage(UVM_CVR_ALL);

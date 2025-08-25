@@ -46,6 +46,12 @@ class apb_fifo_vseq extends uvm_sequence #(apb_fifo_txn);
             sub_seq = seq_reg_08::type_id::create("sub_seq");
         end else if (test_id == "REG_09") begin
             sub_seq = seq_reg_09::type_id::create("sub_seq");
+        end else if (test_id == "REG_10") begin
+            sub_seq = seq_reg_10::type_id::create("sub_seq");
+        end else if (test_id == "REG_11") begin
+            sub_seq = seq_reg_11::type_id::create("sub_seq");
+        end else if (test_id == "REG_12") begin
+            sub_seq = seq_reg_12::type_id::create("sub_seq");
         end else if (test_id == "FIFO_01") begin
             sub_seq = seq_fifo_01::type_id::create("sub_seq");
         end else if (test_id == "FIFO_02") begin
@@ -67,7 +73,14 @@ class apb_fifo_vseq extends uvm_sequence #(apb_fifo_txn);
         end 
 
         if(test_id.substr(0,2) == "REG") begin
-            sub_seq.start(vsqr.rgm.default_map.get_sequencer());
+            string sub = test_id.substr(test_id.len()-2, test_id.len()-1);  
+            int val;
+            $sscanf(sub, "%d", val);
+            if(val <= 10) begin
+                sub_seq.start(vsqr.rgm.default_map.get_sequencer());
+            end else begin
+                sub_seq.start(vsqr);
+            end    
         end else begin
             sub_seq.start(vsqr);
         end

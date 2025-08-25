@@ -19,10 +19,21 @@ In addition to the test plan and functional coverage, a detailed [development lo
 </p>
 
 <div align="center">  
-DUT Structure
+<i> DUT Structure </i>
 </div>  
 
-The DUT consists of an APB register interface, a configurable-depth synchronous FIFO, and a register block with 8 memory-mapped registers. The depth_reg field controls FIFO depth, which dynamically adjusts buffer size during operation. 
+The DUT consists of an APB register interface, a configurable-depth synchronous FIFO, and a register block with 9 memory-mapped registers. The depth_reg field controls FIFO depth, which dynamically adjusts buffer size during operation. The status_reg provides runtime status of the FIFO.
+
+<p align="center">
+  <img src="./doc/depthfield.png" width="200"/>
+</p>
+
+<div align="center">  
+<i> Depth Configuration </i>
+</div>  
+
+For the depth_reg register, the depth field controls the depth of the FIFO as showed above. 
+For the status_reg register, the occupancy field keeps monitoring current items in the FIFO and the full and empty fields output the status of the FIFO.
 
 ## UVM Structure
 <p align="center">
@@ -30,7 +41,7 @@ The DUT consists of an APB register interface, a configurable-depth synchronous 
 </p>
 
 <div align="center">  
-UVM Structure
+<i> UVM Structure </i>
 </div> 
 
 The UVM environment includes a configurable agent, sequencer, driver, monitor, bfm, scoreboard, coverage collector, and register model integration via adapter and predictor. A virtual sequence and a virtual sequencer coordinate multiple functional tests including register access, FIFO write/read, and reset scenarios. The register model is fully integrated using UVM_RGM and supports frontdoor/backdoor access with coverage hooks.
@@ -50,7 +61,10 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 | REG_07 | Back door write, frontdoor read              | Mixed     | Display write value                 |PASS    |make TESTID=REG_07          |
 | REG_08 | Read all dummy_regs                          | Frontdoor | Return 0x0000_0000                  |PASS    |make TESTID=REG_08          |
 | REG_09 | Mirror and compare                           | Frontdoor | Mirror matches DUT                  |PASS    |make TESTID=REG_09          |
-| REG_10 | Coverage bins                                | /         | /                                   |        |          |
+| REG_10 | Read the default value of reg9               | Frontdoor | Return 0x0000_0001                  |PASS    |make TESTID=REG_10          |
+| REG_11 | Write till full then read reg9               | Frontdoor | count=8, full=1, empty=0            |PASS    |make TESTID=REG_11          |
+| REG_12 | Write till full read one then read reg9      | Frontdoor | count=7, full=0, empty=0            |PASS    |make TESTID=REG_12          |
+| REG_xx | Coverage bins                                | /         | /                                   |        |          |
 
 </div>
 
@@ -68,7 +82,7 @@ The UVM environment includes a configurable agent, sequencer, driver, monitor, b
 | FIFO_07 | Read When empty                | 8     | Return 0x0        | PASS   |make TESTID=FIFO_07          |
 | FIFO_08 | 2x FIFO_06                     | 8     | Read Write Value  | PASS   |make TESTID=FIFO_08          |
 | FIFO_09 | PSTRB R/W Test                 | 8     | Read 0x0          | PASS   |make TESTID=FIFO_09          |
-| FIFO_10 | Coverage Bins                  | /     | /                 |        |          |
+| FIFO_xx | Coverage Bins                  | /     | /                 |        |          |
 
 </div>
 

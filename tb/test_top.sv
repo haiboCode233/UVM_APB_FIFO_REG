@@ -15,6 +15,7 @@ import uvm_pkg::*;
 `include "./uvm/coverage/apb_fifo_coverage.sv"
 
 `include "./uvm/reg/apb_fifo_depth_reg.sv"
+`include "./uvm/reg/apb_fifo_status_reg.sv"
 `include "./uvm/reg/apb_fifo_dummy_reg.sv"
 `include "./uvm/reg/apb_fifo_reg_block.sv"
 `include "./uvm/reg/apb_fifo_rgm_adapter.sv"
@@ -29,6 +30,9 @@ import uvm_pkg::*;
 `include "./uvm/seq/reg/REG_07.sv"
 `include "./uvm/seq/reg/REG_08.sv"
 `include "./uvm/seq/reg/REG_09.sv"
+`include "./uvm/seq/reg/REG_10.sv"
+`include "./uvm/seq/reg/REG_11.sv"
+`include "./uvm/seq/reg/REG_12.sv"
 
 `include "./uvm/seq/fifo/FIFO_01.sv"
 `include "./uvm/seq/fifo/FIFO_02.sv"
