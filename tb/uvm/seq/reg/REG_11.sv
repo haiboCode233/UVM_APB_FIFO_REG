@@ -48,20 +48,20 @@ class seq_reg_11 extends uvm_sequence #(apb_fifo_txn);
             .parent(this),
             .path(UVM_FRONTDOOR)
         );
-        
+
         assert (read_val[0] == 1'b0)
         else begin
-            `uvm_fatal("REG_11 CHECK_FAILED", $sformatf("Empty Field Expected %b, got %b", 1'b0, read_val[0]), UVM_LOW);
+            `uvm_fatal("REG_11 CHECK_FAILED", $sformatf("Empty Field Expected %b, got %b", 1'b0, read_val[0]));
         end
 
         assert (read_val[1] == 1'b1)
         else begin
-            `uvm_fatal("REG_11 CHECK_FAILED", $sformatf("Full Field Expected %b, got %b", 1'b1, read_val[0]), UVM_LOW);
+            `uvm_fatal("REG_11 CHECK_FAILED", $sformatf("Full Field Expected %b, got %b", 1'b1, read_val[0]));
         end
 
         assert (read_val[7:2] == 6'b001_000)
         else begin
-            `uvm_fatal("REG_11 CHECK_FAILED", $sformatf("Count Field Expected %b, got %b", 6'b001_000, read_val[7:2]), UVM_LOW);
+            `uvm_fatal("REG_11 CHECK_FAILED", $sformatf("Count Field Expected %b, got %b", 6'b001_000, read_val[7:2]));
         end
     endtask
 endclass //seq_reg_01 extends uvm_sequence #(apb_fifo_txn)

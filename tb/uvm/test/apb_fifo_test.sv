@@ -8,6 +8,8 @@ class apb_fifo_test extends uvm_test;
     apb_fifo_vseq vseq;
     apb_fifo_reg_block rgm;
     
+    int unsigned FIFO_DEPTH = 8; // TODO: temporary hardcoded
+    
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction //new()
@@ -22,6 +24,8 @@ class apb_fifo_test extends uvm_test;
             $set_coverage_db_name("./cov/REG_01.ucdb");
         end
         
+        uvm_config_db#(int unsigned)::set(null, "*", "FIFO_DEPTH", FIFO_DEPTH);
+
         rgm = apb_fifo_reg_block::type_id::create("rgm", this);
         rgm.build();
         rgm.reset();

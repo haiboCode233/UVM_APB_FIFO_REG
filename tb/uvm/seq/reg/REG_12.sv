@@ -26,7 +26,7 @@ class seq_reg_12 extends uvm_sequence #(apb_fifo_txn);
             Description: Write till full read one then read reg9
         */
 
-        // configure depth to 8
+        // configure depth to 8 
         vsqr.rgm.reg0.write(
             .status(status),
             .value(6'b00_0001),
@@ -55,17 +55,17 @@ class seq_reg_12 extends uvm_sequence #(apb_fifo_txn);
         
         assert (read_val[0] == 1'b0)
         else begin
-            `uvm_fatal("REG_12 CHECK_FAILED", $sformatf("Empty Field Expected %b, got %b", 1'b0, read_val[0]), UVM_LOW);
+            `uvm_fatal("REG_12 CHECK_FAILED", $sformatf("Empty Field Expected %b, got %b", 1'b0, read_val[0]));
         end
 
         assert (read_val[1] == 1'b0)
         else begin
-            `uvm_fatal("REG_12 CHECK_FAILED", $sformatf("Full Field Expected %b, got %b", 1'b0, read_val[0]), UVM_LOW);
+            `uvm_fatal("REG_12 CHECK_FAILED", $sformatf("Full Field Expected %b, got %b", 1'b0, read_val[0]));
         end
 
         assert (read_val[7:2] == 6'b000_111)
         else begin
-            `uvm_fatal("REG_12 CHECK_FAILED", $sformatf("Count Field Expected %b, got %b", 6'b000_111, read_val[7:2]), UVM_LOW);
+            `uvm_fatal("REG_12 CHECK_FAILED", $sformatf("Count Field Expected %b, got %b", 6'b000_111, read_val[7:2]));
         end
     endtask
 endclass //seq_reg_01 extends uvm_sequence #(apb_fifo_txn)

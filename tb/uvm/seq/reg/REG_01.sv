@@ -9,6 +9,7 @@ class seq_reg_01 extends uvm_sequence #(apb_fifo_txn);
     
     apb_fifo_depth_reg rg;
     apb_fifo_reg_block rgm;
+    apb_fifo_coverage cov;
 
     function new(string name = "seq_reg_01");
         super.new(name);
@@ -18,6 +19,11 @@ class seq_reg_01 extends uvm_sequence #(apb_fifo_txn);
         if (!uvm_config_db#(apb_fifo_reg_block)::get(null, "", "rgm", rgm)) begin
             `uvm_fatal("CONFIG", "Failed to get rgm from config_db")
         end
+
+        if (!uvm_config_db#(apb_fifo_coverage)::get(null, "", "cov", cov)) begin
+            `uvm_fatal("CONFIG", "Cannot get cov handle from config_db")
+        end
+
         rg = rgm.reg0;
 
         /*
@@ -52,6 +58,9 @@ class seq_reg_01 extends uvm_sequence #(apb_fifo_txn);
             .parent(this),
             .path(UVM_FRONTDOOR)
         );
+
+        cov.sample_status(read_val[0], read_val[1], read_val[7:2]);
+
         assert (read_val == 32'h0000_0004)
         else begin
             `uvm_fatal("REG_02 CHECK_FAILED", $sformatf("Expected %h, got %h", 32'h0000_0100, read_val));

@@ -29,6 +29,8 @@ class apb_fifo_env extends uvm_env;
       `uvm_fatal("ENV", "No regmodel found")
     if (rgm.default_map == null)
       `uvm_fatal("RGM_NULL", "Register model rgm is null in env!")
+    
+    uvm_config_db#(apb_fifo_coverage)::set(null, "", "cov", cov);
   endfunction
 
   virtual function void connect_phase(uvm_phase phase);

@@ -6,7 +6,6 @@ class apb_fifo_vseq extends uvm_sequence #(apb_fifo_txn);
     
     string test_id;
     uvm_sequence_base sub_seq;
-
     apb_fifo_vsqr vsqr;
 
     function new(string name = "apb_fifo_vseq");

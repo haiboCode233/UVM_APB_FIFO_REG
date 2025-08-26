@@ -7,6 +7,7 @@ class apb_fifo_coverage extends  uvm_component;
     uvm_analysis_imp #(apb_fifo_txn, apb_fifo_coverage) ap_imp;
     
     apb_fifo_txn txn;
+    int unsigned fifo_depth;
 
     covergroup cg_apb_txn;
         option.per_instance = 1;
@@ -18,7 +19,7 @@ class apb_fifo_coverage extends  uvm_component;
         }
         
         addr : coverpoint txn.addr {
-            bins fifo = {[32'h00 : 32'hFF]};
+            bins fifo = {32'h0000_0000};
             bins regs = {[32'h8000_0000 : 32'h8000_00FF]};
             bins illegal = default;
             }
@@ -56,27 +57,55 @@ class apb_fifo_coverage extends  uvm_component;
 
     endgroup
 
+    
+    bit status_empty, status_full;
+    int status_occupancy;
+
     covergroup cg_fifo_behavior;
         option.per_instance = 1;
         option.name = "cg_apb_txn";
 
-        occupancy : coverpoint txn.write {
+        empty: coverpoint status_empty {
+            bins not_empty = {0};
+            bins is_empty = {1};
         }
 
+        full: coverpoint status_full {
+            bins not_full = {0};
+            bins is_full = {1};
+        }
 
+        occupancy: coverpoint status_occupancy {
+            bins low = {[0:2]};
+            bins high = {[fifo_depth-2: fifo_depth]};
+        }
+
+        cross status_empty, status_full;
     endgroup
+
     function new(string name, uvm_component parent);
         super.new(name, parent);
         ap_imp = new("ap_imp", this);
         cg_apb_txn = new();
+        cg_fifo_behavior = new();
     endfunction //new()
 
     function void build_phase(uvm_phase phase);
-        ;
+        if (!uvm_config_db#(int unsigned)::get(this, "", "FIFO_DEPTH", fifo_depth))
+            `uvm_fatal("COV", "fifo_depth not set in config_db!");
+        // `uvm_info("COV", $sformatf("fifo depth is configured to: %d", fifo_depth), UVM_LOW);
     endfunction
 
     function void write(apb_fifo_txn t);
         txn = t;
         cg_apb_txn.sample();
     endfunction
+
+    task sample_status(bit empty, bit full, int occupancy);
+        status_empty = empty;
+        status_full = full;
+        status_occupancy = occupancy;
+        cg_fifo_behavior.sample();
+    endtask
+
 endclass //apb_fifo_coverage extends uvm_component

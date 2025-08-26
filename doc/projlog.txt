@@ -48,4 +48,4 @@
 08/22/2025: Added an extra register to expose status signals of the dut, created related RGM on the UVM side.
 08/23/2025: Found a bug when testing the new register RGM, failed to read the correct value. 
 08/24/2025:  
-08/25/2025: Fixed the address mapping bug, finished extra baseline tests REG_10 - REG_12.
+08/25/2025: Fixed the address mapping bug, finished extra baseline tests REG_10 - REG_12. Added fifo behavior coverage bins, added depth variable and cov to the config db. Decided to run different tests under different tests with factory override.

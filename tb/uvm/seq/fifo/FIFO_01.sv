@@ -26,7 +26,7 @@ class seq_fifo_01 extends uvm_sequence #(apb_fifo_txn);
         // configure depth to 8
         vsqr.rgm.reg0.write(
             .status(status),
-            .value(6'b00_0001),
+            .value(6'b000_001),
             .parent(this),
             .path(UVM_FRONTDOOR)
         );
