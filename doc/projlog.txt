@@ -49,3 +49,5 @@
 08/23/2025: Found a bug when testing the new register RGM, failed to read the correct value. 
 08/24/2025:  
 08/25/2025: Fixed the address mapping bug, finished extra baseline tests REG_10 - REG_12. Added fifo behavior coverage bins, added depth variable and cov to the config db. Decided to run different tests under different tests with factory override.
+08/26/2025: (Since the bins have been fixed, time to focus on randomized tests and applying factory override)
+08/27/2025: Added rand seq source file for randomized test. Plan to add a new variable to switch between legal bins/illegal bins.

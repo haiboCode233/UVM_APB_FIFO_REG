@@ -24,6 +24,8 @@ import uvm_pkg::*;
 
 // test sequences
 `include "./uvm/seq/apb_fifo_seq.sv"
+`include "./uvm/seq/apb_fifo_rand_seq.sv"
+
 `include "./uvm/seq/reg/REG_01.sv"
 `include "./uvm/seq/reg/REG_05.sv"
 `include "./uvm/seq/reg/REG_06.sv"

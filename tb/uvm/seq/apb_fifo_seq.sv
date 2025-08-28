@@ -8,7 +8,6 @@ class apb_fifo_seq extends uvm_sequence #(apb_fifo_txn);
     int gap_cycles = 0;
     bit  [3:0]  strob = 4'b0001;
 
-
     function new(string name = "apb_fifo_seq");
         super.new(name);
     endfunction
